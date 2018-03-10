@@ -2,7 +2,7 @@ import datetime
 import imutils
 import time
 import cv2
-#from firebase import motiondetect
+from firebase import motiondetect
 
 camera = cv2.VideoCapture(0)
 time.sleep(0.50)
@@ -36,17 +36,16 @@ while True:
 
 	for c in cnts:
 		# if the contour is too small, ignore it
-		if cv2.contourArea(c) < 500:
+		if cv2.contourArea(c) < 1000:
 			continue
 
 		# compute the bounding box for the contour, draw it on the frame,
 		# and update the text
 		(x, y, w, h) = cv2.boundingRect(c)
 		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-		text = "Occupied"
-		print("lol")
-		#motiondetect(text)
-		cv2.imwrite("test.jpg", frame)
+		text = "Room is Occupied at"
+		motiondetect(text)
+		#cv2.imwrite("test.jpg", frame)
 
 
         # draw the text and timestamp on the frame

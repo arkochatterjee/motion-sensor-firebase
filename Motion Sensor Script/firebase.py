@@ -1,6 +1,7 @@
 import pyrebase
 import firebase_admin
 from firebase_admin import credentials
+from datetime import datetime
 
 def motiondetect(a):
 
@@ -16,8 +17,5 @@ def motiondetect(a):
 
     db = firebase.database()
 
-    data = {"text": a,"name": a}
+    data = {"text": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),"name": a}
     db.child("users").push(data)
-
-
-motiondetect("Security Check!")
