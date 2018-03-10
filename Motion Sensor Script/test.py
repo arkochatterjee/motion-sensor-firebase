@@ -2,8 +2,9 @@ import datetime
 import imutils
 import time
 import cv2
+#from firebase import motiondetect
 
-camera = cv2.VideoCapture(1)
+camera = cv2.VideoCapture(0)
 time.sleep(0.50)
 print("Hello!")
 
@@ -44,6 +45,7 @@ while True:
 		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 		text = "Occupied"
 		print("lol")
+		#motiondetect(text)
 		cv2.imwrite("test.jpg", frame)
 
 
