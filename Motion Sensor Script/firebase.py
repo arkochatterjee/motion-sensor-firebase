@@ -16,8 +16,8 @@ def motiondetect(a):
 
     db = firebase.database()
 
-    data = {"motion-detect": a}
+    data = {"text": a,"name": a}
     db.child("users").push(data)
 
 
-motiondetect("Arko Chatterjee")
+motiondetect("Security Check!")

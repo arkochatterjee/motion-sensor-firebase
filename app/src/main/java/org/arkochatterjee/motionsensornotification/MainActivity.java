@@ -61,47 +61,28 @@ public class MainActivity extends AppCompatActivity
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("users");
+        DatabaseReference myRef = database.getReference();
 
-        mChildEventListener = new ChildEventListener() {
+        myRef.child("users").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                //MotionDetect msg=dataSnapshot.getValue(MotionDetect.class);
-                //mMessageAdapter.add(msg);
-               // ((TextView)findViewById(R.id.textView1)).setText(msg);
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
-                    ((TextView)findViewById(R.id.textView1)).setText("HI");
-                else
-                    ((TextView)findViewById(R.id.textView1)).setText("NO");
+                {
+                    for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
+                    {
+                        MotionDetect user=postSnapShot.getValue(MotionDetect.class);
+                        String ShowDataString =user.getName()+"\n"+user.getText()+"\n\n";
+                        ((TextView)findViewById(R.id.textView1)).setText(ShowDataString);
+
+                    }
+                }
 
             }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                if(dataSnapshot.exists())
-                    ((TextView)findViewById(R.id.textView1)).setText("HIll");
-                else
-                    ((TextView)findViewById(R.id.textView1)).setText("NOll");
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                //hideProgressDialog();
             }
-        };
-        myRef.addChildEventListener(mChildEventListener);
+        });
 
     }
 
