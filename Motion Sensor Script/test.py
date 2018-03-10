@@ -3,7 +3,7 @@ import imutils
 import time
 import cv2
 
-camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture(1)
 time.sleep(0.50)
 print("Hello!")
 
